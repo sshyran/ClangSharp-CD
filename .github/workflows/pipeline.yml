@@ -18,8 +18,8 @@ jobs:
     - name: Setup NUKE
       run: dotnet tool install Nuke.GlobalTool --global
     - name: Setup Git
-      run:
-      - git config --global user.email "31213871+UltzLtd@users.noreply.github.com"
-      - git config --global user.name "Ultz"
+      run: |
+        git config --global user.email "31213871+UltzLtd@users.noreply.github.com"
+        git config --global user.name "Ultz"
     - name: Full Run
       run: nuke fullrun --nuget-api-key ${{ secrets.NUGET_TOKEN }} --configuration Release
