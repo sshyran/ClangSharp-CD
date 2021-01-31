@@ -1,0 +1,21 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Setup NUKE
+      run: dotnet tool install Nuke.GlobalTool --global
+    - name: Full Run
+      run: nuke fullrun --nuget-api-key ${{ secrets.NUGET_TOKEN }} --configuration Release
