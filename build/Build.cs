@@ -70,8 +70,10 @@ class Build : NukeBuild
         .Executes(() =>
         {
             var revBefore = RevParse(RootDirectory / "upstream");
+            Process.Start(new ProcessStartInfo("git", "fetch --all") {WorkingDirectory = RootDirectory / "upstream"})
+                ?.WaitForExit();
             Process.Start(new ProcessStartInfo
-                    {FileName = "git", Arguments = "pull origin master", WorkingDirectory = RootDirectory / "upstream"})
+                    {FileName = "git", Arguments = "reset --hard origin/master", WorkingDirectory = RootDirectory / "upstream"})
                 ?.WaitForExit();
             var revAfter = RevParse(RootDirectory / "upstream");
             if (revBefore != revAfter)
