@@ -78,12 +78,18 @@ class Build : NukeBuild
             var revAfter = RevParse(RootDirectory / "upstream");
             if (revBefore != revAfter)
             {
+                CopyFile(RootDirectory / "misc" / "Directory.Build.Interop.props", RootDirectory / "upstream" / "sources" / "ClangSharp.Interop" / "Directory.Build.props");
                 CopyFile(RootDirectory / "misc" / "Directory.Build.props", RootDirectory / "upstream" / "sources" / "ClangSharp" / "Directory.Build.props");
                 DotNetPack(s =>
                     s.SetOutputDirectory(ArtifactsDirectory)
                         .SetProperty("Version",
                             $"{DateTime.UtcNow.Year}.{DateTime.UtcNow.Month}.{DateTime.UtcNow.Day}-nightly")
                         .SetProject(RootDirectory / "upstream" / "sources" / "ClangSharp" / "ClangSharp.csproj"));
+                DotNetPack(s =>
+                    s.SetOutputDirectory(ArtifactsDirectory)
+                        .SetProperty("Version",
+                            $"{DateTime.UtcNow.Year}.{DateTime.UtcNow.Month}.{DateTime.UtcNow.Day}-nightly")
+                        .SetProject(RootDirectory / "upstream" / "sources" / "ClangSharp.Interop" / "ClangSharp.Interop.csproj"));
             }
         });
 
