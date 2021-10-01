@@ -88,7 +88,7 @@ class Build : NukeBuild
                 DotNetPack(s =>
                     s.SetOutputDirectory(ArtifactsDirectory)
                         .SetProperty("Version",
-                            $"{DateTime.UtcNow.Year}.{DateTime.UtcNow.Month}.{DateTime.UtcNow.Day}-nightly")
+                            $"{DateTime.UtcNow.Year}.{DateTime.UtcNow.Month}.{DateTime.UtcNow.Day}-nightly2")
                         .SetProject(RootDirectory / "upstream" / "sources" / "ClangSharp" / "ClangSharp.csproj"));
             }
         });
