@@ -78,11 +78,11 @@ class Build : NukeBuild
             var revAfter = RevParse(RootDirectory / "upstream");
             if (revBefore != revAfter)
             {
+                CopyFile(RootDirectory / "misc" / "Directory.Build.props", RootDirectory / "upstream" / "sources" / "ClangSharp" / "Directory.Build.props");
                 DotNetPack(s =>
                     s.SetOutputDirectory(ArtifactsDirectory)
                         .SetProperty("Version",
                             $"{DateTime.UtcNow.Year}.{DateTime.UtcNow.Month}.{DateTime.UtcNow.Day}-nightly")
-                        .SetProperty("PackageId", "Ultz.Private.ClangSharp")
                         .SetProject(RootDirectory / "upstream" / "sources" / "ClangSharp" / "ClangSharp.csproj"));
             }
         });
